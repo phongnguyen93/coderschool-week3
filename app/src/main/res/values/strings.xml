@@ -1,3 +1,11 @@
 <resources>
 	<string name="app_name">NoisyBirdy</string>
+	<string name="twitter_api_key">hNGEP8vTJLVoJrZu5IhqXW8Jv</string>
+	<string name="twitter_api_secret">M8NiuAnEBeStC2sGaYheirIHgfeWdlm9iwgiUSBFFsnlVS6bsU</string>
+	
+	<string name="app_only_authentication_url">https://api.twitter.com/oauth2/token</string>
+	<string name="request_token_url">https://api.twitter.com/oauth/request_token</string>
+	<string name="authorize_token_url">https://api.twitter.com/oauth/authorize</string>
+	<string name="access_token_url">https://api.twitter.com/oauth/access_token</string>
+	<string name="base_url">https://api.twitter.com/1.1/</string>
 </resources>
