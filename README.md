@@ -73,6 +73,9 @@ that was really a rough stuffs but when i used them and know how they work, whic
 By the way, in this assignment i "sacraficed" the UI/UX for the App structure design, so maybe it's look a little bit simple 
 but like they said "Handsome is as handsome does"
 
+**IMPORTANT: there is an issue when open app and then navigate to browser to make request authen, but after authorize you must close the browser and then use app or the app keep open browser to request auth. I'm doing my best to fix that. 
+!!! SORRY FOR THAT INCONVENIENCE !!!**
+
 
 ## License
 
