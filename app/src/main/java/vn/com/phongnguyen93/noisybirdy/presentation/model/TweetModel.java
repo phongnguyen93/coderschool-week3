@@ -46,7 +46,7 @@ public class TweetModel {
     this.text = text;
   }
 
-  public int getFav_count() {
+  public int getFavCount() {
     return fav_count;
   }
 
@@ -54,7 +54,7 @@ public class TweetModel {
     this.fav_count = fav_count;
   }
 
-  public int getRetweet_count() {
+  public int getRetweetCount() {
     return retweet_count;
   }
 

@@ -2,17 +2,11 @@ package vn.com.phongnguyen93.noisybirdy.domain.interactor;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subscribers.DisposableSubscriber;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import vn.com.phongnguyen93.noisybirdy.domain.executor.PostExecutionThread;
 import vn.com.phongnguyen93.noisybirdy.domain.executor.ThreadExecutor;
-
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -25,14 +19,13 @@ import vn.com.phongnguyen93.noisybirdy.domain.executor.ThreadExecutor;
  * Created by phongnguyen on 3/4/17.
  */
 
-public abstract class UseCase  {
+public abstract class UseCase {
   private final ThreadExecutor threadExecutor;
   private final PostExecutionThread postExecutionThread;
 
   private Observable dataStream;
 
-  protected UseCase(ThreadExecutor threadExecutor,
-      PostExecutionThread postExecutionThread) {
+  protected UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
     this.threadExecutor = threadExecutor;
     this.postExecutionThread = postExecutionThread;
   }
@@ -48,8 +41,7 @@ public abstract class UseCase  {
    * @param useCaseSubscriber The guy who will be listen to the observable build
    * with {@link #buildUseCaseObservable()}.
    */
-  @SuppressWarnings("unchecked")
-  public void execute(Observer useCaseSubscriber){
+  @SuppressWarnings("unchecked") public void execute(Observer useCaseSubscriber) {
     dataStream = buildUseCaseObservable();
     dataStream.subscribeOn(Schedulers.from(threadExecutor))
         .observeOn(postExecutionThread.getScheduler())
@@ -60,7 +52,6 @@ public abstract class UseCase  {
    * Unsubscribes from current {@link Subscription}.
    */
   public void unsubscribe() {
-      dataStream.unsubscribeOn(Schedulers.from(threadExecutor));
-
+    if (dataStream != null) dataStream.unsubscribeOn(Schedulers.from(threadExecutor));
   }
 }

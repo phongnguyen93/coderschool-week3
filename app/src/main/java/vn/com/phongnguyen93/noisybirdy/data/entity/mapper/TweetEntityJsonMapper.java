@@ -60,7 +60,7 @@ public class TweetEntityJsonMapper {
 
     //combine hashtag json array into 1 string to save in TweetEntity
     String hashtags = "";
-    //JSONArray hashtagsArray = jsonObject.getJSONArray(FIELD_HASHTAGS);
+    //JSONArray hashtagsArray = jsonObject.getJSONObject("entities").getJSONArray(FIELD_HASHTAGS);
     //if(hashtagsArray!=null && hashtagsArray.length()>0){
     //  for (int i = 0; i < hashtagsArray.length(); i++) {
     //    if (i == 0) {
@@ -76,7 +76,7 @@ public class TweetEntityJsonMapper {
 
     //combine urls json array into 1 string to save in TweetEntity
     String urls = "";
-    //JSONArray urlsArray = jsonObject.getJSONArray(FIELD_URLS);
+    //JSONArray urlsArray = jsonObject.getJSONObject("entities").getJSONArray(FIELD_URLS);
     //if(urlsArray!=null && urlsArray.length()>0){
     //  for (int i = 0; i < urlsArray.length(); i++) {
     //    if (i == 0) {

@@ -1,10 +1,30 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fitsSystemWindows="true"
+      app:elevation="0dp"
+      android:background="@android:color/transparent"
+      android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+    <!-- Toolbar is the actual app bar with text and the action items -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways" />
+  </android.support.design.widget.AppBarLayout>
 
   <FrameLayout
+      android:layout_marginTop="?actionBarSize"
       android:id="@+id/fragmentContainer"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

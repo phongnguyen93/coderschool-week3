@@ -1,47 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<vn.com.phongnguyen93.noisybirdy.presentation.view.component.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:gravity="top"
+		android:id="@+id/sliding_layout"
+		app:umanoDragView="@+id/compose_layout"
+		app:umanoOverlay="true"
+		app:umanoPanelHeight="0dp"
+		app:umanoScrollableView="@+id/rv_tweet"
+		app:umanoShadowHeight="4dp"
+		android:layout_height="match_parent">
 
-  <RelativeLayout
-      android:id="@+id/main"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_tweet"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+	<android.support.v4.widget.SwipeRefreshLayout
+			android:id="@+id/swipeLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
 
-    <include
-        layout="@layout/view_progress"
-        />
+		<android.support.design.widget.CoordinatorLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				>
 
-    <include
-        layout="@layout/view_retry"
-        />
-
-    <Button
-        android:visibility="gone"
-        android:id="@+id/btn_start"
-        android:text="start"
-        android:layout_margin="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-  </RelativeLayout>
+			<RelativeLayout
+					android:id="@+id/main"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
 
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/btn_post"
-      android:layout_width="wrap_content"
-      android:layout_margin="16dp"
-      app:fabSize="normal"
-      app:layout_anchor="@+id/main"
-      app:layout_anchorGravity="bottom|end"
-      android:src="@drawable/ic_mode_edit_white_24dp"
-      app:backgroundTint="@color/colorAccent"
-      android:layout_height="wrap_content"/>
-</android.support.design.widget.CoordinatorLayout>
+				<android.support.v7.widget.RecyclerView
+						android:id="@+id/rv_tweet"
+						android:layout_width="match_parent"
+						android:clipToPadding="false"
+						android:layout_height="match_parent"
+						android:scrollbars="vertical"
+						app:layout_behavior="@string/appbar_scrolling_view_behavior"
+						/>
+
+				<include
+						layout="@layout/view_progress"
+						/>
+
+				<include
+						layout="@layout/view_retry"
+						/>
+
+			</RelativeLayout>
+
+
+			<android.support.design.widget.FloatingActionButton
+					android:id="@+id/btn_post"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="16dp"
+					android:src="@drawable/ic_mode_edit_white_24dp"
+					app:backgroundTint="@color/colorAccent"
+					app:fabSize="normal"
+					app:layout_anchor="@+id/main"
+					android:layout_gravity="bottom|end"
+					app:layout_anchorGravity="bottom|right|end"/>
+		</android.support.design.widget.CoordinatorLayout>
+	</android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+	<LinearLayout
+			android:padding="16dp"
+			android:background="@color/base"
+			android:orientation="vertical"
+			android:id="@+id/compose_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+		<TextView
+				android:text="0/140"
+				android:textSize="16sp"
+				android:textColor="@color/colorPrimary"
+				android:id="@+id/tv_char_count"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+		<EditText
+				android:hint="Post a new tweet..."
+				android:textSize="16sp"
+				android:id="@+id/edt_compose"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+		<TextView
+				android:id="@+id/btn_submit"
+				android:textColor="@color/colorPrimary"
+				android:text="Post"
+				android:textStyle="bold"
+				android:textSize="16sp"
+				android:layout_gravity="bottom|end"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+	</LinearLayout>
+
+</vn.com.phongnguyen93.noisybirdy.presentation.view.component.SlidingUpPanelLayout>

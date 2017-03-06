@@ -11,4 +11,5 @@
 	<string name="exception_message_generic">Error occurs</string>
 	<string name="exception_message_no_connection">Network\'s error</string>
 	<string name="btn_text_retry">Retry</string>
+	<string name="base_char_count">%d/140</string>
 </resources>

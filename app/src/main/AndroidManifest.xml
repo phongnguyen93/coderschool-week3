@@ -14,6 +14,7 @@
 
 		<activity
 				android:name=".presentation.view.activity.TweetListActivity"
+				android:theme="@style/AppTheme"
 				android:screenOrientation="portrait"/>
 
 		<activity
