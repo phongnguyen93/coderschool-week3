@@ -17,6 +17,10 @@ package vn.com.phongnguyen93.noisybirdy.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
+import android.widget.Toast;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import cz.msebera.android.httpclient.Header;
+import io.reactivex.disposables.Disposable;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +29,9 @@ import vn.com.phongnguyen93.noisybirdy.domain.exception.DefaultErrorBundle;
 import vn.com.phongnguyen93.noisybirdy.domain.exception.ErrorBundle;
 import vn.com.phongnguyen93.noisybirdy.domain.interactor.DefaultSubscriber;
 import vn.com.phongnguyen93.noisybirdy.domain.interactor.UseCase;
+import vn.com.phongnguyen93.noisybirdy.presentation.NoisyBirdyApplication;
 import vn.com.phongnguyen93.noisybirdy.presentation.di.PerActivity;
+import vn.com.phongnguyen93.noisybirdy.presentation.exception.ErrorMessageFactory;
 import vn.com.phongnguyen93.noisybirdy.presentation.mapper.TweetModelDataMapper;
 import vn.com.phongnguyen93.noisybirdy.presentation.model.TweetModel;
 import vn.com.phongnguyen93.noisybirdy.presentation.view.TweetListView;
@@ -43,9 +49,9 @@ public class TweetListPresenter implements Presenter {
   private final TweetModelDataMapper tweetModelDataMapper;
 
   @Inject
-  public TweetListPresenter(@Named("userList") UseCase getUserListUserCase,
+  public TweetListPresenter(@Named("tweetList") UseCase getTweetListUseCase,
       TweetModelDataMapper modelDataMapper) {
-    this.getTweetListUseCase = getUserListUserCase;
+    this.getTweetListUseCase = getTweetListUseCase;
     this.tweetModelDataMapper = modelDataMapper;
   }
 
@@ -76,6 +82,25 @@ public class TweetListPresenter implements Presenter {
     this.hideViewRetry();
     this.showViewLoading();
     this.getTweetList();
+  }
+
+  public void postTweet(final NoisyBirdyApplication application,String text){
+    showViewLoading();
+    application.getClient(application.getApplicationContext()).postTweet(
+        text, new AsyncHttpResponseHandler() {
+          @Override public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+            if(statusCode==200){
+              hideViewLoading();
+              Toast.makeText(application.getApplicationContext(),"Tweet is posted",Toast.LENGTH_SHORT).show();
+              loadTweetList();
+            }
+          }
+
+          @Override public void onFailure(int statusCode, Header[] headers, byte[] responseBody,
+              Throwable error) {
+            hideViewLoading();
+          }
+        });
   }
 
   public void onTweetClicked(TweetModel tweetModel) {
@@ -114,6 +139,7 @@ public class TweetListPresenter implements Presenter {
     this.getTweetListUseCase.execute(new TweetListSubscriber());
   }
 
+
   private final class TweetListSubscriber extends DefaultSubscriber<ArrayList<Tweet>> {
 
     @Override public void onCompleted() {
@@ -126,7 +152,12 @@ public class TweetListPresenter implements Presenter {
       TweetListPresenter.this.showViewRetry();
     }
 
+    @Override public void onSubscribe(Disposable d) {
+
+    }
+
     @Override public void onNext(ArrayList<Tweet> tweets) {
+      TweetListPresenter.this.hideViewLoading();
       TweetListPresenter.this.showTweetsCollectionInView(tweets);
     }
   }

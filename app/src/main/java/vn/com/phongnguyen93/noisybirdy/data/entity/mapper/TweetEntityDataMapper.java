@@ -1,5 +1,6 @@
 package vn.com.phongnguyen93.noisybirdy.data.entity.mapper;
 
+import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,9 +39,15 @@ import vn.com.phongnguyen93.noisybirdy.domain.Tweet;
       tweet.setRetweetCount(entity.getRetweetCount());
       tweet.setTweetUserImage(entity.getTweetUserImage());
       tweet.setTweetUserName(entity.getTweetUserName());
-      tweet.setImageUrls(new ArrayList<String>(Arrays.asList(entity.getImageUrl().split(","))));
-      tweet.setHashTags(new ArrayList<String>(Arrays.asList(entity.getHashtag().split(","))));
-      tweet.setUrls(new ArrayList<String>(Arrays.asList(entity.getUrl().split(","))));
+      if (entity.getImageUrl() != null && !TextUtils.isEmpty(entity.getImageUrl())) {
+        tweet.setImageUrls(new ArrayList<String>(Arrays.asList(entity.getImageUrl().split(","))));
+      }
+      if (entity.getHashtag() != null && !TextUtils.isEmpty(entity.getHashtag())) {
+        tweet.setHashTags(new ArrayList<String>(Arrays.asList(entity.getHashtag().split(","))));
+      }
+      if (entity.getUrl() != null && !TextUtils.isEmpty(entity.getUrl())) {
+        tweet.setUrls(new ArrayList<String>(Arrays.asList(entity.getUrl().split(","))));
+      }
       return tweet;
     }
   }

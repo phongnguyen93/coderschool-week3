@@ -19,7 +19,8 @@ import vn.com.phongnguyen93.noisybirdy.domain.exception.EmptyTweetListException;
 
 public class TweetCacheImpl implements TweetCache {
 
-  private Realm realm;
+  private RealmHelper realmHelper;
+  private Context context;
 
   /**
    * Constructor of the class {@link TweetCacheImpl}
@@ -31,14 +32,16 @@ public class TweetCacheImpl implements TweetCache {
     if (context == null || realmHelper == null) {
       throw new IllegalArgumentException("Invalid null parameter");
     }
-    this.realm = realmHelper.getRealmInstance(context);
+    this.context = context;
+    this.realmHelper = realmHelper;
   }
 
   @Override public Observable<List<TweetEntity>> getList(final int limit) {
     return Observable.create(new ObservableOnSubscribe<List<TweetEntity>>() {
       @Override public void subscribe(final ObservableEmitter<List<TweetEntity>> subscriber)
           throws Exception {
-        realm.executeTransactionAsync(new Realm.Transaction() {
+        Realm realm = realmHelper.getRealmInstance(context);
+        realm.executeTransaction(new Realm.Transaction() {
           @Override public void execute(Realm realm) {
             RealmResults<TweetEntity> results = realm.where(TweetEntity.class).findAll();
             if (results != null && results.size() > 0) {
@@ -47,15 +50,11 @@ public class TweetCacheImpl implements TweetCache {
                 if (i < limit) entityCollection.add(results.get(i));
               }
 
-              subscriber.onNext(results);
+              subscriber.onNext(entityCollection);
               subscriber.onComplete();
             } else {
               subscriber.onError(new EmptyTweetListException());
             }
-          }
-        }, new Realm.Transaction.OnError() {
-          @Override public void onError(Throwable error) {
-            subscriber.onError(error);
           }
         });
       }
@@ -63,6 +62,7 @@ public class TweetCacheImpl implements TweetCache {
   }
 
   @Override public void putList(final List<TweetEntity> tweetEntityList) {
+    Realm realm = realmHelper.getRealmInstance(context);
     realm.executeTransactionAsync(new Realm.Transaction() {
       @Override public void execute(Realm realm) {
         realm.copyToRealm(tweetEntityList);
@@ -71,6 +71,7 @@ public class TweetCacheImpl implements TweetCache {
   }
 
   @Override public void put(final TweetEntity entity) {
+    Realm realm = realmHelper.getRealmInstance(context);
     realm.executeTransactionAsync(new Realm.Transaction() {
       @Override public void execute(Realm realm) {
         realm.copyToRealm(entity);
@@ -79,6 +80,11 @@ public class TweetCacheImpl implements TweetCache {
   }
 
   @Override public void evictAll() {
-    realm.deleteAll();
+    Realm realm = realmHelper.getRealmInstance(context);
+    realm.executeTransaction(new Realm.Transaction() {
+      @Override public void execute(Realm realm) {
+        realm.deleteAll();
+      }
+    });
   }
 }

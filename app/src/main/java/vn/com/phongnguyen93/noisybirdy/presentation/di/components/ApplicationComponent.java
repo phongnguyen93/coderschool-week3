@@ -16,16 +16,13 @@
 package vn.com.phongnguyen93.noisybirdy.presentation.di.components;
 
 import android.content.Context;
-
 import dagger.Component;
 import javax.inject.Singleton;
-import vn.com.phongnguyen93.noisybirdy.data.api.RestApi;
-import vn.com.phongnguyen93.noisybirdy.data.api.RestApiImpl;
 import vn.com.phongnguyen93.noisybirdy.domain.executor.PostExecutionThread;
 import vn.com.phongnguyen93.noisybirdy.domain.executor.ThreadExecutor;
 import vn.com.phongnguyen93.noisybirdy.domain.repository.Repository;
-import vn.com.phongnguyen93.noisybirdy.presentation.BaseActivity;
 import vn.com.phongnguyen93.noisybirdy.presentation.di.modules.ApplicationModule;
+import vn.com.phongnguyen93.noisybirdy.presentation.view.activity.BaseActivity;
 
 /**
  * A component whose lifetime is the life of the application.

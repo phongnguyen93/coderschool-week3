@@ -1,8 +1,10 @@
 package vn.com.phongnguyen93.noisybirdy.data.api;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -42,8 +44,7 @@ public class RestApiImpl extends OAuthBaseClient implements RestApi {
   private Context context;
   private TweetEntityJsonMapper entityJsonMapper;
 
-  @Inject
-  public RestApiImpl(Context context) {
+  @Inject public RestApiImpl(Context context) {
     super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET,
         REST_CALLBACK_URL);
 
@@ -78,6 +79,8 @@ public class RestApiImpl extends OAuthBaseClient implements RestApi {
     String apiUrl = getApiUrl(HOME_TIMELINE_URL);
     RequestParams params = new RequestParams();
     params.put("count", String.valueOf(count));
+    params.put("include_entities",String.valueOf(true));
+    params.put("exclude_replies",String.valueOf(false));
     getClient().get(apiUrl, params, handler);
   }
 
@@ -96,59 +99,54 @@ public class RestApiImpl extends OAuthBaseClient implements RestApi {
 
   @Override public Observable<List<TweetEntity>> tweetEntityList(final int limit) {
     return Observable.create(new ObservableOnSubscribe<List<TweetEntity>>() {
-      @Override public void subscribe(final ObservableEmitter<List<TweetEntity>> subscriber) throws Exception {
+      @Override public void subscribe(final ObservableEmitter<List<TweetEntity>> subscriber)
+          throws Exception {
         //check internet connection before make request
-        if(Utility.isThereInternetConnection(context)){
-          getHomeTimeline(limit*2, new JsonHttpResponseHandler() {
-            @Override public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-              super.onSuccess(statusCode, headers, response);
-              if(statusCode==STATUS_SUCCESS){
-                try{
-                  subscriber.onNext(entityJsonMapper.transformJSONtoCollection(response));
-                  subscriber.onComplete();
-                }catch (JSONException ex){
-                  subscriber.onError(ex);
+        if (Utility.isThereInternetConnection(context)) {
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override public void run() {
+              getHomeTimeline(limit*2, new JsonHttpResponseHandler() {
+                @Override public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                  super.onSuccess(statusCode, headers, response);
+                  if(statusCode==STATUS_SUCCESS){
+                    try{
+                      subscriber.onNext(entityJsonMapper.transformJSONtoCollection(response));
+                      subscriber.onComplete();
+                    }catch (JSONException ex){
+                      subscriber.onError(ex);
+                    }
+                  }
                 }
-              }
-            }
 
-            @Override public void onFailure(int statusCode, Header[] headers, Throwable throwable,
-                JSONArray errorResponse) {
-              super.onFailure(statusCode, headers, throwable, errorResponse);
-              subscriber.onError(throwable);
+                @Override public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                    JSONArray errorResponse) {
+                  super.onFailure(statusCode, headers, throwable, errorResponse);
+                  subscriber.onError(throwable);
+                }
+              });
             }
           });
-        }else
+        } else {
           subscriber.onError(new NetworkConnectionException());
+        }
       }
     });
   }
 
-  @Override public Observable<Boolean> postTweet(final String text) {
-    return Observable.create(new ObservableOnSubscribe<Boolean>() {
-      @Override public void subscribe(final ObservableEmitter<Boolean> subscriber) throws Exception {
-        if(Utility.isThereInternetConnection(context)){
-          postTweet(text,new JsonHttpResponseHandler(){
-            @Override public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-              super.onSuccess(statusCode, headers, response);
-              if(statusCode == STATUS_SUCCESS){
-                subscriber.onNext(true);
-                subscriber.onComplete();
-              }
-            }
+      @Override public Observable<Boolean> postTweet(final String text) {
+        return Observable.create(new ObservableOnSubscribe<Boolean>() {
+          @Override public void subscribe(final ObservableEmitter<Boolean> subscriber)
+              throws Exception {
+            if (Utility.isThereInternetConnection(context)) {
+              new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override public void run() {
 
-            @Override public void onFailure(int statusCode, Header[] headers, Throwable throwable,
-                JSONObject errorResponse) {
-              super.onFailure(statusCode, headers, throwable, errorResponse);
-              subscriber.onError(throwable);
+                }
+              });
+            } else {
+              subscriber.onError(new NetworkConnectionException());
             }
-          });
-
-        }else
-          subscriber.onError(new NetworkConnectionException());
+          }
+        });
       }
-    });
   }
-
-
-}

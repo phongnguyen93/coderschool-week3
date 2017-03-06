@@ -20,6 +20,7 @@ import dagger.Component;
 import vn.com.phongnguyen93.noisybirdy.presentation.di.PerActivity;
 import vn.com.phongnguyen93.noisybirdy.presentation.di.modules.ActivityModule;
 import vn.com.phongnguyen93.noisybirdy.presentation.di.modules.UserModule;
+import vn.com.phongnguyen93.noisybirdy.presentation.view.fragment.TweetListFragment;
 
 /**
  * A scope {@link PerActivity} component.
@@ -28,6 +29,6 @@ import vn.com.phongnguyen93.noisybirdy.presentation.di.modules.UserModule;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
 public interface UserComponent extends ActivityComponent {
-  //void inject(UserListFragment userListFragment);
+  void inject(TweetListFragment tweetListFragment);
   //void inject(UserDetailsFragment userDetailsFragment);
 }

@@ -15,27 +15,29 @@
  */
 package vn.com.phongnguyen93.noisybirdy.domain.interactor;
 
+import android.util.Log;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subscribers.DisposableSubscriber;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 /**
  * Default subscriber base class to be used whenever you want default error handling.
  */
-public abstract class DefaultSubscriber<T> implements Subscriber<T> {
+public abstract class DefaultSubscriber<T> implements Observer<T> {
   public abstract void onCompleted();
 
+
   @Override public void onError(Throwable e) {
-    // no-op by default.
+    Log.e("error",e.getMessage());
   }
 
   @Override public void onComplete() {
 
   }
 
-  @Override public void onSubscribe(Subscription s) {
-
-  }
 
   @Override public void onNext(T t) {
     // no-op by default.

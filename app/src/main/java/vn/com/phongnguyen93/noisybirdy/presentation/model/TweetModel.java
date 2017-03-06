@@ -62,7 +62,7 @@ public class TweetModel {
     this.retweet_count = retweet_count;
   }
 
-  public String getTweet_user_name() {
+  public String getTweetUserName() {
     return tweet_user_name;
   }
 
@@ -70,7 +70,7 @@ public class TweetModel {
     this.tweet_user_name = tweet_user_name;
   }
 
-  public String getTweet_user_image() {
+  public String getTweetUserImage() {
     return tweet_user_image;
   }
 

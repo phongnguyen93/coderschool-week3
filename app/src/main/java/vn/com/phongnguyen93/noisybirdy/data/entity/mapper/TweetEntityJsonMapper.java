@@ -60,41 +60,49 @@ public class TweetEntityJsonMapper {
 
     //combine hashtag json array into 1 string to save in TweetEntity
     String hashtags = "";
-    JSONArray hashtagsArray = jsonObject.getJSONArray(FIELD_HASHTAGS);
-    for (int i = 0; i < hashtagsArray.length(); i++) {
-      if (i == 0) {
-        hashtags = hashtags.concat(hashtagsArray.getJSONObject(i).getString(FIELD_HASHTAGS_TEXT));
-      } else {
-        hashtags =
-            hashtags.concat("," + hashtagsArray.getJSONObject(i).getString(FIELD_HASHTAGS_TEXT));
-      }
-    }
+    //JSONArray hashtagsArray = jsonObject.getJSONArray(FIELD_HASHTAGS);
+    //if(hashtagsArray!=null && hashtagsArray.length()>0){
+    //  for (int i = 0; i < hashtagsArray.length(); i++) {
+    //    if (i == 0) {
+    //      hashtags = hashtags.concat(hashtagsArray.getJSONObject(i).getString(FIELD_HASHTAGS_TEXT));
+    //    } else {
+    //      hashtags =
+    //          hashtags.concat("," + hashtagsArray.getJSONObject(i).getString(FIELD_HASHTAGS_TEXT));
+    //    }
+    //  }
+    //}
     entity.setHashtag(hashtags);
+
 
     //combine urls json array into 1 string to save in TweetEntity
     String urls = "";
-    JSONArray urlsArray = jsonObject.getJSONArray(FIELD_URLS);
-    for (int i = 0; i < urlsArray.length(); i++) {
-      if (i == 0) {
-        urls = urls.concat(hashtagsArray.getJSONObject(i).getString(FIELD_URLS_URL));
-      } else {
-        urls = urls.concat("," + hashtagsArray.getJSONObject(i).getString(FIELD_URLS_URL));
-      }
-    }
+    //JSONArray urlsArray = jsonObject.getJSONArray(FIELD_URLS);
+    //if(urlsArray!=null && urlsArray.length()>0){
+    //  for (int i = 0; i < urlsArray.length(); i++) {
+    //    if (i == 0) {
+    //      urls = urls.concat(urlsArray.getJSONObject(i).getString(FIELD_URLS_URL));
+    //    } else {
+    //      urls = urls.concat("," + urlsArray.getJSONObject(i).getString(FIELD_URLS_URL));
+    //    }
+    //  }
+    //}
     entity.setUrl(urls);
+
 
     //combine image urls json array into 1 string to save in TweetEntity
     String imageUrls = "";
-    JSONArray imageUrlArray = jsonObject.getJSONArray(FIELD_IMAGE_URLS);
-    for (int i = 0; i < imageUrlArray.length(); i++) {
-      if (i == 0) {
-        imageUrls =
-            imageUrls.concat(hashtagsArray.getJSONObject(i).getString(FIELD_IMAGE_URLS_URL));
-      } else {
-        imageUrls =
-            imageUrls.concat("," + hashtagsArray.getJSONObject(i).getString(FIELD_IMAGE_URLS_URL));
-      }
-    }
+    //JSONArray imageUrlArray = jsonObject.getJSONArray(FIELD_IMAGE_URLS);
+    //if(imageUrlArray!=null && imageUrlArray.length()>0){
+    //  for (int i = 0; i < imageUrlArray.length(); i++) {
+    //    if (i == 0) {
+    //      imageUrls =
+    //          imageUrls.concat(imageUrlArray.getJSONObject(i).getString(FIELD_IMAGE_URLS_URL));
+    //    } else {
+    //      imageUrls =
+    //          imageUrls.concat("," + imageUrlArray.getJSONObject(i).getString(FIELD_IMAGE_URLS_URL));
+    //    }
+    //  }
+    //}
     entity.setImageUrl(imageUrls);
 
     return entity;

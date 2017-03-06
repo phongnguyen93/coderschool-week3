@@ -8,4 +8,7 @@
 	<string name="authorize_token_url">https://api.twitter.com/oauth/authorize</string>
 	<string name="access_token_url">https://api.twitter.com/oauth/access_token</string>
 	<string name="base_url">https://api.twitter.com/1.1/</string>
+	<string name="exception_message_generic">Error occurs</string>
+	<string name="exception_message_no_connection">Network\'s error</string>
+	<string name="btn_text_retry">Retry</string>
 </resources>

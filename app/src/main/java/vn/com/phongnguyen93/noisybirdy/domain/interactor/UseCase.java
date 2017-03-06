@@ -4,8 +4,10 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import vn.com.phongnguyen93.noisybirdy.domain.executor.PostExecutionThread;
@@ -27,7 +29,7 @@ public abstract class UseCase  {
   private final ThreadExecutor threadExecutor;
   private final PostExecutionThread postExecutionThread;
 
-  private Disposable subscription = Disposables.empty();
+  private Observable dataStream;
 
   protected UseCase(ThreadExecutor threadExecutor,
       PostExecutionThread postExecutionThread) {
@@ -48,7 +50,8 @@ public abstract class UseCase  {
    */
   @SuppressWarnings("unchecked")
   public void execute(Observer useCaseSubscriber){
-    subscription = buildUseCaseObservable().subscribeOn(Schedulers.from(threadExecutor))
+    dataStream = buildUseCaseObservable();
+    dataStream.subscribeOn(Schedulers.from(threadExecutor))
         .observeOn(postExecutionThread.getScheduler())
         .subscribe(useCaseSubscriber);
   }
@@ -57,8 +60,7 @@ public abstract class UseCase  {
    * Unsubscribes from current {@link Subscription}.
    */
   public void unsubscribe() {
-    if (!subscription.isDisposed()) {
-      subscription.dispose();
-    }
+      dataStream.unsubscribeOn(Schedulers.from(threadExecutor));
+
   }
 }

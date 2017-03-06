@@ -35,6 +35,7 @@ public class TweetModelDataMapper {
     }else{
       TweetModel tweetModel = new TweetModel();
       tweetModel.setId(tweet.getId());
+      tweetModel.setText(tweet.getText());
       tweetModel.setUrls(tweet.getUrls());
       tweetModel.setPlace(tweet.getPlace());
       tweetModel.setDate(tweet.getDate());

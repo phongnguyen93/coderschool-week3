@@ -17,10 +17,10 @@ package vn.com.phongnguyen93.noisybirdy.presentation.navigation;
 
 import android.content.Context;
 import android.content.Intent;
-import com.fernandocejas.android10.sample.presentation.view.activity.UserDetailsActivity;
-import com.fernandocejas.android10.sample.presentation.view.activity.UserListActivity;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import vn.com.phongnguyen93.noisybirdy.presentation.view.activity.TweetListActivity;
 
 /**
  * Class used to navigate through the application.
@@ -40,7 +40,7 @@ public class Navigator {
    */
   public void navigateToHome(Context context) {
     if (context != null) {
-      Intent intentToLaunch = UserListActivity.getCallingIntent(context);
+      Intent intentToLaunch = TweetListActivity.getCallingIntent(context);
       context.startActivity(intentToLaunch);
     }
   }
