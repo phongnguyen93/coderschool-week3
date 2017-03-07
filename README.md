@@ -59,12 +59,12 @@ The following **additional** features are implemented:
 * Apply some basic Clean Architecture (https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) 
   with Reactive Programming (RxJava2 & RxAndroid) + Dagger + Butterknife+Realm 
 - App structure is divide into 3 main layer:
-    + *Data*: In this layer, I use Factory Pattern to produce ApiDataStore or LocalDataStore(Realm) implementation base on some logic condition, 
+  + *Data*: In this layer, I use Factory Pattern to produce ApiDataStore or LocalDataStore(Realm) implementation base on some logic condition, 
       then data will be wrapped in an Observable which will emit our data to upper layer, in this layer data which is retrieved will be push to upper layer
       throught an interface to decouple between each layer.
-    + *Domain*: Here is layer which contain all the app logic. In this layer, I implemented app's usecase (get home timeline, post tweet) and transform data retrieved
+   + *Domain*: Here is layer which contain all the app logic. In this layer, I implemented app's usecase (get home timeline, post tweet) and transform data retrieved
       from lower layer (Data) to POJO object. Also, I created a Subscriber which observered the Observable data got from Data layer to handle success, error case
-    + *Presenter*: Presenter is where i used MVP pattern to use data which retrieved and modified in lower layer, View (Activity,Fragment) will be handle display action only
+   + *Presenter*: Presenter is where i used MVP pattern to use data which retrieved and modified in lower layer, View (Activity,Fragment) will be handle display action only
       all the implementation lay in Presenter which will handle Model objects (data retrieved from Domain). Here is also the layer i used Dagger2 to localize all the needed method
       injected and provided them 
 
