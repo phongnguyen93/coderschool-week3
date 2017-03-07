@@ -58,7 +58,7 @@ The following **additional** features are implemented:
 
 * Apply some basic Clean Architecture (https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) 
   with Reactive Programming (RxJava2 & RxAndroid) + Dagger + Butterknife+Realm 
-  - App structure is divide into 3 main layer:
+- App structure is divide into 3 main layer:
     + *Data*: In this layer, I use Factory Pattern to produce ApiDataStore or LocalDataStore(Realm) implementation base on some logic condition, 
       then data will be wrapped in an Observable which will emit our data to upper layer, in this layer data which is retrieved will be push to upper layer
       throught an interface to decouple between each layer.
