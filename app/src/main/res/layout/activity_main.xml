@@ -1,20 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<vn.com.phongnguyen93.noisybirdy.lite.component.SlidingUpPanelLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:id="@+id/activity_main"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/sliding_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingBottom="@dimen/activity_vertical_margin"
-		android:paddingLeft="@dimen/activity_horizontal_margin"
-		android:paddingRight="@dimen/activity_horizontal_margin"
-		android:paddingTop="@dimen/activity_vertical_margin"
-		tools:context="vn.com.phongnguyen93.noisybirdy.presentation.view.activity.MainActivity">
+		android:gravity="top"
+		app:umanoDragView="@+id/compose_layout"
+		app:umanoOverlay="true"
+		app:umanoPanelHeight="0dp"
+		app:umanoScrollableView="@+id/main_content"
+		app:umanoShadowHeight="4dp">
 
-	<WebView
-			android:id="@+id/wvAuth"
+
+	<LinearLayout
+			android:id="@+id/main_content"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			android:orientation="vertical">
 
-	</WebView>
-</RelativeLayout>
+		<include layout="@layout/toolbar"/>
+
+		<FrameLayout
+				android:id="@+id/holder"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+		</FrameLayout>
+
+		<android.support.design.widget.FloatingActionButton
+				android:id="@+id/btn_post"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom|end"
+				android:layout_marginBottom="56dp"
+				android:layout_marginRight="16dp"
+				android:src="@drawable/ic_mode_edit_white_24dp"
+				app:backgroundTint="@color/colorAccent"
+				app:fabSize="normal"
+				app:layout_anchor="@+id/holder"
+				app:layout_anchorGravity="bottom|right|end"/>
+	</LinearLayout>
+
+	<LinearLayout
+			android:id="@+id/compose_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/base"
+			android:orientation="vertical"
+			android:padding="16dp">
+
+		<TextView
+				android:id="@+id/tv_char_count"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="0/140"
+				android:textColor="@color/colorPrimary"
+				android:textSize="16sp"/>
+
+		<EditText
+				android:id="@+id/edt_compose"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="Post a new tweet..."
+				android:textSize="16sp"/>
+
+		<TextView
+				android:id="@+id/btn_submit"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom|end"
+				android:text="Post"
+				android:textColor="@color/colorPrimary"
+				android:textSize="16sp"
+				android:textStyle="bold"/>
+	</LinearLayout>
+</vn.com.phongnguyen93.noisybirdy.lite.component.SlidingUpPanelLayout>

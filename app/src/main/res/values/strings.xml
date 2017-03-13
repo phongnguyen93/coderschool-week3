@@ -2,7 +2,7 @@
 	<string name="app_name">NoisyBirdy</string>
 	<string name="twitter_api_key">hNGEP8vTJLVoJrZu5IhqXW8Jv</string>
 	<string name="twitter_api_secret">M8NiuAnEBeStC2sGaYheirIHgfeWdlm9iwgiUSBFFsnlVS6bsU</string>
-	
+
 	<string name="app_only_authentication_url">https://api.twitter.com/oauth2/token</string>
 	<string name="request_token_url">https://api.twitter.com/oauth/request_token</string>
 	<string name="authorize_token_url">https://api.twitter.com/oauth/authorize</string>
@@ -12,4 +12,7 @@
 	<string name="exception_message_no_connection">Network\'s error</string>
 	<string name="btn_text_retry">Retry</string>
 	<string name="base_char_count">%d/140</string>
+	<string name="base_follower_count"><![CDATA[<b><font color=#0083b3>%1$d</b><b><font color=#ffffff> Followers</b>]]></string>
+	<string name="base_following_count"><![CDATA[<b><font color=#0083b3>%1$d</b><b><font color=#ffffff> Likes</b>]]></string>
+	<string name="base_tweet_count"><![CDATA[<b><font color=#0083b3>%1$d</b><b><font color=#ffffff> Tweets</b>]]></string>
 </resources>
